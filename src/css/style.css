@@ -1,0 +1,81 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4/07/2023, 03:12:18 PM
+    Author     : Emmanuel
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+#labelMenu{
+    -fx-font-family: 'Montserrat';
+}
+#imgMenu{
+    /*-fx-focus-colory: "#7900ac";
+    -fx-faint-focus-color:"#7900ac";*/
+    -fx-focus-colory: transparent;
+    -fx-faint-focus-color: transparent;
+}
+#btn{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 40px;
+    -fx-text-fill: #7900ac;
+    -fx-pref-width: 100px;
+}
+#btn:hover{
+    -fx-background-color: #e6ccef;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 0.5px;
+    -fx-border-radius: 40px;
+
+}
+
+
+
+/*.combo-box .list-view  -fx-border-width: 2px;*/ 
+#comboboxDivisa .list-cell:filled:selected{
+     -fx-font-weight: bold;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+}
+#comboboxDivisa .list-cell:filled:hover{
+    -fx-font-weight: bold;
+    -fx-background-color: #e6ccef;
+    -fx-text-fill: #7900cd;
+}
+#comboboxTemp .list-cell:filled:selected{
+    -fx-font-weight: bold;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6px;
+    -fx-text-fill: black;
+    
+}
+#comboboxTemp .list-cell:filled:hover{
+    -fx-font-weight: bold;
+    -fx-background-color: #7900cd;
+    -fx-text-fill: #ffffff;
+}
+/*
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+*/
+.text-field {
+	-fx-accent: #007acc;
+	-fx-background-color: #b9b9b9, white;
+	-fx-background-insets: 0, 0 0 1 0;
+	-fx-background-radius: 0;
+}
+.text-field:focused {
+	-fx-background-color: #7900cd, white;
+}

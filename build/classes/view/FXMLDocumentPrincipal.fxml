@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="AnchorPane" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentPrincipalController">
+    <children>
+        <VBox id="containerMenu" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #ffffff;">
+            <children>
+                <Label prefHeight="79.0" prefWidth="249.0" stylesheets="@../css/style.css" text="Convertidor de Temperatura" textAlignment="CENTER" textFill="#7900ac" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+            <ImageView fx:id="imgTemp" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#mouseEventClickTemp" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo_temp2.jpg" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            </children>
+        </VBox>
+        <VBox id="containerMenu" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #ffffff;">
+            <children>
+                <Label prefHeight="75.0" prefWidth="249.0" text="Convertidor de Divisas" textAlignment="CENTER" textFill="#7900ac" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+            <ImageView fx:id="imgDivisa" fitHeight="111.0" fitWidth="114.0" onMouseClicked="#mouseEventClickDivisa" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/change_Icon2.jpg" />
+               </image>
+               <VBox.margin>
+                  <Insets top="22.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            </children>
+        </VBox>
+    </children>
+</HBox>
