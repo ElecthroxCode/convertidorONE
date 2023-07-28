@@ -12,14 +12,24 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-
+/**
+ * Representa la conexión a una API y sus operaciones.
+ * @author Emmanuel Silano
+ */
 public class APIConnector {
   private final String urlString;
-
+  /**
+   * Crea una instancia de una API.
+   * @param urlString Es una URL o endpoint de la API.
+   */
   public APIConnector(String urlString) {
     this.urlString = urlString;
   }
-  
+  /**
+   * Crea un JSONArray.
+   * @param query intruccion.
+   * @return Retorna un JSONArray.
+   */
   public JSONArray getJSONArray(String query){
     try {
       URL url = new URL(urlString+query);
@@ -45,7 +55,11 @@ public class APIConnector {
     }
     return null;
   }
-   
+  /**
+   * Crea un JSONObject.
+   * @param query instruccion.
+   * @return Retorna un JSONObject.
+   */
   public JSONObject getJSONObject(String query){
     try {
       URL url = new URL(urlString + query);
@@ -72,7 +86,10 @@ public class APIConnector {
     }
     return null;
   }
-
+  /**
+   * Permite obtener una lista de los código de monedas.
+   * @return Retorna una lista de códigos de las monedas.
+   */
   public ArrayList<String> getListDivisa(){
       JSONObject jsonObj = getJSONObject("");
       JSONObject jsonRate = (JSONObject) jsonObj.get("rates");
@@ -82,7 +99,10 @@ public class APIConnector {
      Collections.addAll(listKeys, keyArray);
      return listKeys;
   }
-  
+  /**
+   * Obtiene un Map con los códigos y sus respectiva descripción.
+   * @return Retorna Map de código de moneda y descripción.
+   */
   public Map<String, String> getMapDivisa(){
       JSONObject jsonObject = getJSONObject("");
       JSONObject jsonSymbol = (JSONObject) jsonObject.get("symbols");
@@ -95,7 +115,13 @@ public class APIConnector {
       }
       return mapStr;
   }
-  
+  /**
+   * Permite obtener el resultado de la conversión de las divisas.
+   * @param fromDivisa Código de la moneda que se quiere convertir
+   * @param toDivisa Código de la moneda a la cual se desea convertir
+   * @param divisaOne Cantidad a convertir
+   * @return Retorna el resultado de la conversion monetaria
+   */
   public String getResultConverter(String fromDivisa, String toDivisa, Double divisaOne){
       
       String query = "convert?from=" + fromDivisa + "&to=" + toDivisa + "&amount=" + divisaOne + "&places=2";

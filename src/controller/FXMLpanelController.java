@@ -19,7 +19,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import service.APIConnector;
 import service.UtilTemperatura;
-
+/**
+ * Controlador del panel principal que contiene el convertidor de divisas y temperatura.
+ * @author Emmanuel Silano
+ */
 public class FXMLpanelController implements Initializable {
 
     String url = "https://api.exchangerate.host/";
@@ -86,28 +89,37 @@ public class FXMLpanelController implements Initializable {
 
     @FXML
     private Button btnTemp;
-
+    /**
+     * Evento click del boton que lleva a la ventana del convertidor de divisas
+     * @param event 
+     */
     @FXML
     public void actionBtnNavD(ActionEvent event) {
         switchContentPanel(panelTemp, panelDivisas, panelInfo, false, true, false);
         toggleTitlePanel("Convertidor de divisas");
     }
-
+    /**
+     * Evento click del boton que lleva a la ventana de información.
+     * @param event 
+     */
     @FXML
     public void actionBtnNavInf(ActionEvent event) {
         switchContentPanel(panelTemp, panelDivisas, panelInfo, false, false, true);
         toggleTitlePanel("Convertidor Alura - Challenge #1 Back G5");
 
     }
-
+    /**
+     * Evento click que lleva a la ventana del convertidor de temperatura.
+     * @param event 
+     */
     @FXML
     public void actionBtnNavT(ActionEvent event) {
         switchContentPanel(panelDivisas, panelTemp, panelInfo, false, true, false);
         toggleTitlePanel("Convertidor de temperartura");
 
     }
-
-//--------------------------------TEMPERATURA---------------------------------------------------------
+    
+    //método conversor de temperatura
     private void converterTemperatura() {
         String textOneTemp = getTextTempOne().getText();
         boolean g = isNumeric(textOneTemp);
@@ -144,10 +156,11 @@ public class FXMLpanelController implements Initializable {
                 getTempLb4().setText(getTextTempOne().getText());
             }
         } else {
-            mostrarAlertErro();
+            showAlertErro();
         }
     }
-
+    
+    //método que permite que el elemento seleccionado combobox de temperatura sea igual al texto del label resultado
     private void selectClickComboboxTemp(ComboBox combobox, Label label) {
         Integer intText = combobox.getSelectionModel().getSelectedIndex();
         for (int i = 0; i < listTempNom.size(); i++) {
@@ -157,7 +170,10 @@ public class FXMLpanelController implements Initializable {
             }
         }
     }
-
+    /**
+     * Evento key que permite realizar la conversion de temperatura al oprimir ENTER.
+     * @param event recibe valor de la tecla ENTER
+     */
     @FXML
     public void tempEventKey(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -165,13 +181,17 @@ public class FXMLpanelController implements Initializable {
                 converterTemperatura();
             } else {
                 emptyResult(getTempLb1(), getTempLb4());
-                mostrarAlertInfo();
+                showAlertInfo();
             }
 
         }
 
     }
-
+    /**
+     * Evento click que permite realizar la conversion de temperatura al seleccionar un 
+     * elemento del primer combobox temperatura.
+     * @param event 
+     */
     @FXML
     public void comboOneTempEvent(ActionEvent event) {
         selectClickComboboxTemp(getComboTempOne(), getTempLb2());
@@ -180,10 +200,14 @@ public class FXMLpanelController implements Initializable {
             converterTemperatura();
         } else {
             emptyResult(getTempLb1(), getTempLb4());
-            mostrarAlertInfo();
+            showAlertInfo();
         }
     }
-
+    /**
+     * Evento click que permite realizar la conversion de temperatura al seleccionar
+     * un elemento del segundo combobox temperatura.
+     * @param event 
+     */
     @FXML
     public void comboSecTempEvent(ActionEvent event) {
         selectClickComboboxTemp(getComboTempSec(), getTempLb5());
@@ -192,12 +216,13 @@ public class FXMLpanelController implements Initializable {
             converterTemperatura();
         } else {
             emptyResult(getTempLb1(), getTempLb4());
-            mostrarAlertInfo();
+            showAlertInfo();
         }
 
     }
 
-//--------------------------------DIVISAS-------------------------------------------------------------
+//--------------------------------DIVISAS--------------------------------------
+    //método que conversor de divisas
     private void converterDivisa() {
         String textOne = getTextDivisaOne().getText();
         boolean b = isNumeric(textOne);
@@ -211,11 +236,11 @@ public class FXMLpanelController implements Initializable {
             textRs = apiConnectorConverter.getResultConverter(txD1, txD2, amount);
             getDivisaLb4().setText(textRs);
         } else {
-            mostrarAlertErro();
+            showAlertErro();
         }
     }
 
-    //MÉTODO QUE SICRONIZA SELECCION DEL COMBOBOX CON EL LABEL DEL RESULTADO
+    //método de interpolación de un elemento seleccionado del combobox divisas y el texto label de resultado
     private void setItemLabelDivisaResult(Map<String, String> mapList, ComboBox combobox, Label lb) {
         mapList = apiConnector.getMapDivisa();
         String text = (combobox.getSelectionModel().getSelectedItem()).toString();
@@ -227,7 +252,10 @@ public class FXMLpanelController implements Initializable {
             }
        
     }
-
+    /**
+     * Evento Key que realiza la conversion de divisas a oprimir ENTER.
+     * @param event Valor de la tecla ENTER.
+     */
     @FXML
     public void eventKey(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
@@ -235,12 +263,16 @@ public class FXMLpanelController implements Initializable {
                 converterDivisa();
             } else {
                 emptyResult(getDivisaLb1(), getDivisaLb4());
-                mostrarAlertInfo();
+                showAlertInfo();
             }
 
         }
     }
-
+    /**
+     * Evento Click que realiza la conversión de divisas al seleccionar un elemento del
+     * primer combobox divisas.
+     * @param event 
+     */
     @FXML
     private void comboEventDivisaOne(ActionEvent event) {
         setItemLabelDivisaResult(mapList, getComboDivisaOne(), getDivisaLb2());
@@ -250,11 +282,15 @@ public class FXMLpanelController implements Initializable {
             converterDivisa();
         } else {
             emptyResult(getDivisaLb1(), getDivisaLb4());
-            mostrarAlertInfo();
+            showAlertInfo();
         }
 
     }
-
+    /**
+     * Evento Click que realiza la conversión de divisas al seleccionar un elemento del
+     * segundo combobox divisas.
+     * @param event 
+     */
     @FXML
     private void comboEventDivisaSec(ActionEvent event) {
         setItemLabelDivisaResult(mapList, getComboDivisaSec(), getDivisaLb5());
@@ -262,47 +298,78 @@ public class FXMLpanelController implements Initializable {
             converterDivisa();
         } else {
             emptyResult(getDivisaLb1(), getDivisaLb4());
-            mostrarAlertInfo();
+            showAlertInfo();
         }
     }
-//---------------------------------------------------------------------------------------------
 
+    /**
+     * método que cambia el titulo de un panel
+     */
     public void toggleTitlePanel(String nameLabel) {
         this.navPanelLabel.setText(nameLabel);
     }
 
-    //---MÉTODOS QUE CAMBIA LA VISIBILIDAD DE CADA PANEL
+    /**
+     * Método sobrecargado que cambia la visibilidad de dos paneles VBox y uno HBox. Recibe
+     * true para activar y false para desactivar.
+     * @param panelA VBox Panel uno.
+     * @param panelB VBox Panel dos.
+     * @param panelC HBox Panel tres.
+     * @param a Valor booleano  true o false para el panelA.
+     * @param b Valor booleano true o false para panelB.
+     * @param c valor booleano true o false para panelC.
+     */
     public void switchContentPanel(VBox panelA, VBox panelB, HBox panelC, boolean a, boolean b, boolean c) {
         panelA.setVisible(a);
         panelB.setVisible(b);
         panelC.setVisible(c);
     }
-
+    /**
+     * Cambia la visibilidad de un panel del tipo VBox.
+     * @param panelZ Panel VBox.
+     * @param z Valor true para activar y false para desactivar.
+     */
     public void switchContentPanel(VBox panelZ, boolean z) {
         panelZ.setVisible(z);
     }
 
     //--------------------GETTERS------------------------------
+    /**
+     * 
+     * @return Retorna el panel o ventana del convertidor de divisas.
+     */
     public VBox getPanelDivisas() {
         return panelDivisas;
     }
-
+    /**
+     * 
+     * @return Retorna el panel ventana de información.
+     */
     public HBox getPanelInfo() {
         return panelInfo;
     }
-
+    /**
+     * 
+     * @return Retorna el TextField del panel del convertidor de divisas.
+     */
     public TextField getTextDivisaOne() {
         return textDivisaOne;
     }
-
+    /**
+     * 
+     * @return Retorna el primer combobox del panel del convertidor de divisas.
+     */
     public ComboBox<?> getComboDivisaOne() {
         return comboDivisaOne;
     }
-
+    /**
+     * 
+     * @return Retorna el segundo combobox del panel de convertidor de divisas.
+     */
     public ComboBox<?> getComboDivisaSec() {
         return comboDivisaSec;
     }
-
+    
     public Label getDivisaLb1() {
         return divisaLb1;
     }
@@ -326,19 +393,31 @@ public class FXMLpanelController implements Initializable {
     public Button getBtnTemp() {
         return btnTemp;
     }
-
+    /**
+     * 
+     * @return Retorna el panel del convertidor de temperatura.
+     */
     public VBox getPanelTemp() {
         return panelTemp;
     }
-
+    /**
+     * 
+     * @return Retorna el TextField del panel del conversor de temperatura.
+     */
     public TextField getTextTempOne() {
         return textTempOne;
     }
-
+    /**
+     * 
+     * @return Retorna el primer combobox del panel del conversor de temperatura.
+     */
     public ComboBox<?> getComboTempOne() {
         return comboTempOne;
     }
-
+    /**
+     * 
+     * @return Retorna el segundo combobox del conversor de temperatura.
+     */
     public ComboBox<?> getComboTempSec() {
         return comboTempSec;
     }
@@ -359,7 +438,11 @@ public class FXMLpanelController implements Initializable {
         return tempLb5;
     }
 
-    //--MÉTODO QUE VERIFICA SI ES UN NUMERO
+    /**
+     * Método estatico que verifica si el valor es un número.
+     * @param s Valor del tipo String.
+     * @return Retorna true si es un numero.
+     */
     public static boolean isNumeric(String s) {
         try {
             Double.parseDouble(s);
@@ -368,7 +451,7 @@ public class FXMLpanelController implements Initializable {
         }
         return true;
     }
-    //MÉTODO PARA ANULAR RESULTADO
+    //método para anular el texto o cambiarlo por "guiones" del resultado
     private void emptyResult(Label lb1, Label lb2) {
         String strEmpty = "--";
         lb1.setText(strEmpty);
@@ -376,18 +459,18 @@ public class FXMLpanelController implements Initializable {
        
     }
 
-    //--------------------------------------
+    //Método que muestra una alerta de error de que el campo se le debe ingresar numeros
     @FXML
-    private void mostrarAlertErro() {
+    private void showAlertErro() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Error al ingresar datos");
         alert.setContentText("Por favor, tiene que ingresar solo numeros.");
         alert.showAndWait();
     }
-
+    //método que muestra una alerta informativa de que el campo de texto esta vacío
     @FXML
-    private void mostrarAlertInfo() {
+    private void showAlertInfo() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Importante");
@@ -395,13 +478,18 @@ public class FXMLpanelController implements Initializable {
         alert.showAndWait();
     }
 
-    //-----------------------------------------
+    /**
+     * Método que se ejecuta a inicializar el Scene principal que contiene el convertidor
+     * de divisas y de temperatura.
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         /* 
         =======================PANEL TEMPERATURA==================================
          */
-
+        //implementa una lista a los combobox's y se predefine el item al iniciar el panel
         getComboTempOne().getItems().addAll((Collection) listTemp);
         getComboTempOne().getSelectionModel().select(0);
 
@@ -414,11 +502,11 @@ public class FXMLpanelController implements Initializable {
         if (!(getTextTempOne().getText().isEmpty())) {
             converterTemperatura();
         } else {
-            mostrarAlertInfo();
+            showAlertInfo();
         }
 
         /*======================PANEL DIVISAS====================================*/
-        //--implementa la lista en el combobox y preselecionamos un elemento
+        //implementa la lista en el combobox y preselecionamos un elemento
         mapList = apiConnector.getMapDivisa();
 
         getComboDivisaOne().getItems().addAll((Collection) mapList.entrySet());
@@ -426,7 +514,7 @@ public class FXMLpanelController implements Initializable {
         getComboDivisaSec().getItems().addAll((Collection) mapList.entrySet());
         getComboDivisaSec().getSelectionModel().select(67);
 
-        //---toma de valor del item preseleccionado en el combobox
+        //toma de valor del item preseleccionado en el combobox
         String strOne = String.valueOf(getComboDivisaOne().getSelectionModel().getSelectedItem());
         String strSec = String.valueOf(getComboDivisaSec().getSelectionModel().getSelectedItem());
 
@@ -447,7 +535,7 @@ public class FXMLpanelController implements Initializable {
         if (!(getTextDivisaOne().getText().isEmpty())) {
             converterDivisa();
         } else {
-            mostrarAlertInfo();
+            showAlertInfo();
         }
 
     }
